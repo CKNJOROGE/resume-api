@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'resume_api.debug_middleware.DebugRequestMiddleware', 
+    
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -146,6 +146,11 @@ CORS_TRUSTED_ORIGINS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://resume-builder-clean.netlify.app',
 ]
+CORS_ORIGIN_WHITELIST = [
+    'https://resume-builder-clean.netlify.app',
+    'http://localhost:3000',
+]
+
 # Optional: Let the frontend send credentials (for auth later)
 CORS_ALLOW_CREDENTIALS = True
 
