@@ -136,6 +136,10 @@ CORS_ALLOWED_ORIGINS = [
     'https://resume-builder-clean.netlify.app',
 ]
 
+CORS_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    'https://resume-builder-clean.netlify.app',
+]
 # Optional: Let the frontend send credentials (for auth later)
 CORS_ALLOW_CREDENTIALS = True
 
