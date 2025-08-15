@@ -31,11 +31,7 @@ DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1,localhost').split(',')
 
 
-# Heroku / Proxy Security Settings
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+
 
 # Application definition
 
@@ -144,6 +140,9 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    'https://resume-builder-clean.netlify.app',
+]
+CSRF_TRUSTED_ORIGINS = [
     'https://resume-builder-clean.netlify.app',
 ]
 # Optional: Let the frontend send credentials (for auth later)
