@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ResumeViewSet, signup, EmailTokenObtainPairView
+from .views import ResumeViewSet, signup, EmailTokenObtainPairView, confirm_payment, initiate_mpesa_payment, mpesa_callback 
 from . import views
 from rest_framework_simplejwt.views import TokenRefreshView
 
@@ -14,5 +14,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # ← ADD THIS
     path('signup/', signup, name='signup'),
     path('confirm-payment/', views.confirm_payment, name='confirm_payment'),
+    path('initiate-mpesa/', initiate_mpesa_payment, name='initiate_mpesa'),
+    path('mpesa-callback/', mpesa_callback, name='mpesa_callback'),
 
 ]
