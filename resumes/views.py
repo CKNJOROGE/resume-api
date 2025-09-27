@@ -1,4 +1,6 @@
 # resume-api/resumes/views.py
+import os 
+import google.generativeai as genai
 
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import api_view, permission_classes
@@ -18,7 +20,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from datetime import datetime
 import base64
-import os 
+
 
 
 class ResumeViewSet(viewsets.ModelViewSet):
@@ -166,3 +168,37 @@ def mpesa_callback(request):
 
     # For now, we just log the data and return a success response.
     return Response(status=status.HTTP_200_OK)
+
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny]) # This can be public as it doesn't handle sensitive user data
+def rephrase_with_ai(request):
+    """
+    Accepts text and returns an AI-powered rephrased version for a resume.
+    """
+    text_to_rephrase = request.data.get("text")
+    if not text_to_rephrase:
+        return Response({"error": "Text to rephrase is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        api_key = os.environ.get('GEMINI_API_KEY')
+
+        print(f"--- DEBUG: API Key being used: '{api_key}' ---")
+
+        if not api_key:
+             return Response({"error": "AI API key is not configured on the server."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-1.5-flash')
+
+        prompt = f"""You are a professional resume writer. Rephrase the following text to be more impactful and achievement-oriented for a resume. Use strong action verbs and quantifiable results where possible. Do not add any introductory text, quotation marks, or labels like "Suggestion:". Just provide the rephrased sentence directly. Text to rephrase: "{text_to_rephrase}" """
+        
+        response = model.generate_content(prompt)
+        suggestion = response.text.strip()
+
+        return Response({"suggestion": suggestion}, status=status.HTTP_200_OK)
+
+    except Exception as e:
+        print(f"Error during AI rephrasing: {e}")
+        return Response({"error": "Failed to generate AI suggestion due to a server error."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
