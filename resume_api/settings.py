@@ -137,18 +137,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # your React app
     'https://resume-builder-clean.netlify.app',
+    "https://acemycv.com", 
+    "https://www.acemycv.com", 
 ]
 
 CORS_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     'https://resume-builder-clean.netlify.app',
+    "https://acemycv.com", 
+    "https://www.acemycv.com", 
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://resume-builder-clean.netlify.app',
+    "https://acemycv.com", 
+    "https://www.acemycv.com", 
 ]
 CORS_ORIGIN_WHITELIST = [
     'https://resume-builder-clean.netlify.app',
     'http://localhost:3000',
+    "https://acemycv.com", 
+    "https://www.acemycv.com", 
 ]
 
 # Optional: Let the frontend send credentials (for auth later)
