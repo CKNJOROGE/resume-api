@@ -41,9 +41,14 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         except CustomUser.DoesNotExist:
             raise serializers.ValidationError("Invalid email or password.")
 
+        if not user.check_password(password):
+            raise serializers.ValidationError("Invalid email or password.")
+            
         attrs["username"] = user.email
 
         data = super().validate(attrs)
-        data["premium"] = user.premium
+        
+        # Replace 'premium' with 'credits' in the login response
+        data["credits"] = user.credits
 
         return data
