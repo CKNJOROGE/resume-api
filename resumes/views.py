@@ -124,7 +124,7 @@ def rephrase_with_ai(request):
              return Response({"error": "AI API key is not configured on the server."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel('gemini-1.5-flash-latest')
 
         prompt = f"""You are a professional resume writer. Rephrase the following text to be more impactful and achievement-oriented for a resume. Use strong action verbs and quantifiable results where possible. Do not add any introductory text, quotation marks, or labels like "Suggestion:". Just provide the rephrased sentence directly. Text to rephrase: "{text_to_rephrase}" """
         
