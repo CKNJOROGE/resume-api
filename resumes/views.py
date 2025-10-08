@@ -69,7 +69,7 @@ def confirm_manual_payment(request):
     PendingPayment.objects.create(
         user=request.user,
         transaction_id=transaction_id,
-        amount=300,
+        amount=500,
         status='pending'
     )
     
@@ -78,7 +78,7 @@ def confirm_manual_payment(request):
 
     # Add credits to the user's account on trust
     user = request.user
-    user.credits += 300
+    user.credits += 500
     user.save()
 
     return Response({
